@@ -5,6 +5,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import javax.crypto.Cipher;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.Security;
@@ -24,7 +27,6 @@ public class AsymmtetricCrypto {
             Cipher c = Cipher.getInstance("RSA/None/OAEPwithSHA256andMGF1Padding", PROVEDOR);
 
             //Criação das chaves
-
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", PROVEDOR);
             keyGen.initialize(1024);
             KeyPair keyPair = keyGen.generateKeyPair();
@@ -35,6 +37,14 @@ public class AsymmtetricCrypto {
             byte[] criptograma = c.doFinal(TEXTO_CLARO.getBytes());
 
             System.out.println(new String(criptograma, "UTF-8"));
+
+            System.out.println("Encriptando o arquivo: ");
+            File arquivoClaro = new File("/resources/ArquivoCrypto.txt");
+            FileInputStream leitura = new FileInputStream(arquivoClaro);
+//            leitura.readAllBytes();
+//            File arquivoEncriptado = new File("/resources/ArquivoCryptoX.txt");
+//            FileOutputStream escrita = new FileOutputStream(arquivoEncriptado);
+//            escrita.write(c.doFinal(leitura.readAllBytes()));
 
             //Decriptando a mensagem com a chave privada
             c.init(Cipher.DECRYPT_MODE, keyPair.getPrivate(), OEAPps);
