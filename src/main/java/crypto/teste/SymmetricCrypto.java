@@ -11,7 +11,7 @@ import java.security.Security;
 
 public class SymmetricCrypto {
     private static final String PROVEDOR="BC";
-    private static final String TEXTO_CLARO="Senha do cartao";
+    private static final String TEXTO_CLARO="1234";
 
     public static void main(String[] args) {
         Security.addProvider(new BouncyCastleProvider());
@@ -31,6 +31,7 @@ public class SymmetricCrypto {
             byte[] criptograma = c.doFinal(TEXTO_CLARO.getBytes());
 
             System.out.println("Criptograma: "+ DatatypeConverter.printBase64Binary(criptograma));
+            System.out.println("Criptograma: "+ DatatypeConverter.printHexBinary(criptograma));
 
             //Decriptando o criptograma
             c.init(Cipher.DECRYPT_MODE, key);
